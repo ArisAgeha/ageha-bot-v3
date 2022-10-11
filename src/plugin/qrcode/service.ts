@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const os = require('os')
 
-async function getImage(text) {
+export async function getImage(text: string) {
   return new Promise((resolve, reject) => {
     const filename = path.join(
       os.tmpdir(),
@@ -13,32 +13,28 @@ async function getImage(text) {
     qr.image(text, {
       type: 'png',
       size: 10,
-      margin: 2
+      margin: 2,
     }).pipe(stream)
     stream.on('finish', () =>
       resolve([
         {
           type: 'image',
           data: {
-            file: 'file://' + filename
-          }
-        }
+            file: 'file://' + filename,
+          },
+        },
       ])
     )
-    stream.on('error', err => {
+    stream.on('error', (err: any) => {
       console.error('[qrcode]', err)
       resolve([
         {
           type: 'text',
           data: {
-            text: '生成二维码失败'
-          }
-        }
+            text: '生成二维码失败',
+          },
+        },
       ])
     })
   })
-}
-
-module.exports = {
-  getImage
 }

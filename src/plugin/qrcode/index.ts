@@ -1,9 +1,11 @@
+import { TypePluginParams } from '@/bot'
+
 const service = require('./service')
 
-const pattern = /^(JJ|基金)\s+/i
+const pattern = /^(二维码|qr(code)?)\s+/i
 
-module.exports = options => {
-  return async ({ data, ws, http }) => {
+module.exports = () => {
+  return async ({ data, ws }: TypePluginParams) => {
     if (!data.message) {
       return
     }
@@ -14,6 +16,9 @@ module.exports = options => {
     }
 
     message = message.replace(pattern, '').trim()
+    if (!message) {
+      return
+    }
 
     if (data.message_type === 'group') {
       ws.send('send_group_msg', {
@@ -22,11 +27,11 @@ module.exports = options => {
           {
             type: 'reply',
             data: {
-              id: data.message_id
-            }
+              id: data.message_id,
+            },
           },
-          ...(await service.getFund(message))
-        ]
+          ...(await service.getImage(message)),
+        ],
       })
       return
     }
@@ -34,7 +39,7 @@ module.exports = options => {
     if (data.message_type === 'private') {
       ws.send('send_private_msg', {
         user_id: data.user_id,
-        message: await service.getFund(message)
+        message: await service.getImage(message),
       })
       return
     }

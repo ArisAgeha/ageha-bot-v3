@@ -1,6 +1,5 @@
 import { TypePluginParams } from '@/bot'
-
-const service = require('./service')
+import { RunJSService } from './service'
 
 const pattern = /^JS\s+/i
 
@@ -35,7 +34,7 @@ export default (options: RunJsOptions) => {
               id: data.message_id,
             },
           },
-          ...(await service.runJs(message, options)),
+          ...((await RunJSService.runJs(message, options)) as string[]),
         ],
       })
       return
@@ -44,7 +43,7 @@ export default (options: RunJsOptions) => {
     if (data.message_type === 'private') {
       ws.send('send_private_msg', {
         user_id: data.user_id,
-        message: await service.runJs(message, options),
+        message: await RunJSService.runJs(message, options),
       })
       return
     }
