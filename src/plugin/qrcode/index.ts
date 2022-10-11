@@ -1,6 +1,6 @@
 import { TypePluginParams } from '@/bot'
-
-const service = require('./service')
+import { commonReply } from '@/utils/utils'
+import { QrCodeService } from './service'
 
 const pattern = /^(二维码|qr(code)?)\s+/i
 
@@ -20,28 +20,8 @@ module.exports = () => {
       return
     }
 
-    if (data.message_type === 'group') {
-      ws.send('send_group_msg', {
-        group_id: data.group_id,
-        message: [
-          {
-            type: 'reply',
-            data: {
-              id: data.message_id,
-            },
-          },
-          ...(await service.getImage(message)),
-        ],
-      })
-      return
-    }
+    const replyMsg = await QrCodeService.getImage(message)
 
-    if (data.message_type === 'private') {
-      ws.send('send_private_msg', {
-        user_id: data.user_id,
-        message: await service.getImage(message),
-      })
-      return
-    }
+    commonReply({ replyMsg, data, ws })
   }
 }

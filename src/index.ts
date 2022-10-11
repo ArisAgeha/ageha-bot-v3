@@ -2,6 +2,7 @@ import { ws, http } from './bot'
 import { config } from './config'
 
 init()
+
 async function init() {
   const pluginsPromise = Object.keys(config.plugin).map(async name => {
     const fn = (await import(name)).default

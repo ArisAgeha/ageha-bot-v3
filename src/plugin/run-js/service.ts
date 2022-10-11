@@ -26,9 +26,9 @@ export class RunJSService {
   }
 
   static runJs(input: string, options: RunJsOptions) {
-    return new Promise(resolve => {
-      const myResolve = (output: string, error?: any) => {
-        resolve([
+    return new Promise(reply => {
+      const customReply = (output: string, error?: any) => {
+        reply([
           {
             type: 'text',
             data: {
@@ -54,13 +54,13 @@ export class RunJSService {
           hasCallback ? `(function (callback) { ${code} })` : code
         )
         if (typeof result === 'function' && hasCallback) {
-          result(myResolve)
+          result(customReply)
         } else {
-          myResolve(result)
+          customReply(result)
         }
       } catch (e: any) {
         // console.error('[run-js]', e)
-        myResolve(e.message, true)
+        customReply(e.message, true)
       }
     })
   }
