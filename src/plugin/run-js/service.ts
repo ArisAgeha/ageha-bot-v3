@@ -1,7 +1,9 @@
+import { RunJsOptions } from '.'
+
 const { VM } = require('vm2')
 
-function handleOutput(output) {
-  let o = String(output)
+function handleOutput(output: string) {
+  let o: string | string[] = String(output)
   if (o.length === 0) {
     return '运行结果为空'
   }
@@ -22,9 +24,9 @@ function handleOutput(output) {
   return o + f
 }
 
-function runJs(input, options) {
+function runJs(input: string, options: RunJsOptions) {
   return new Promise(resolve => {
-    const myResolve = (output, error) => {
+    const myResolve = (output: string, error?: any) => {
       resolve([
         {
           type: 'text',
@@ -53,7 +55,7 @@ function runJs(input, options) {
       } else {
         myResolve(result)
       }
-    } catch (e) {
+    } catch (e: any) {
       // console.error('[run-js]', e)
       myResolve(e.message, true)
     }

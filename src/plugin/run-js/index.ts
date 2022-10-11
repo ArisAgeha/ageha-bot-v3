@@ -1,9 +1,16 @@
+import { TypePluginParams } from '@/bot'
+
 const service = require('./service')
 
 const pattern = /^JS\s+/i
 
-module.exports = options => {
-  return async ({ data, ws, http }) => {
+export interface RunJsOptions {
+  timeout?: number
+  sandbox: Record<string, Function>
+}
+
+export default (options: RunJsOptions) => {
+  return async ({ data, ws, http }: TypePluginParams) => {
     if (!data.message) {
       return
     }
@@ -25,11 +32,11 @@ module.exports = options => {
           {
             type: 'reply',
             data: {
-              id: data.message_id
-            }
+              id: data.message_id,
+            },
           },
-          ...(await service.runJs(message, options))
-        ]
+          ...(await service.runJs(message, options)),
+        ],
       })
       return
     }
@@ -37,7 +44,7 @@ module.exports = options => {
     if (data.message_type === 'private') {
       ws.send('send_private_msg', {
         user_id: data.user_id,
-        message: await service.runJs(message, options)
+        message: await service.runJs(message, options),
       })
       return
     }
