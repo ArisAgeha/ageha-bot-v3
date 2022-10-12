@@ -232,7 +232,7 @@ export class ScreenshotService {
 
       const rd = String(Math.ceil(Math.random() * 10000000))
       const tempPath = path.resolve(`./temp/${rd}.png`)
-      const savePath = path.resolve(`I:\\酷Q Pro\\data\\image\\${rd}.png`)
+      const savePath = path.resolve(`D:\\data\\image\\${rd}.png`)
 
       commomSend({
         user_id: msg.user_id,
@@ -254,7 +254,7 @@ export class ScreenshotService {
           const imagesCode: string[] = []
           while (curHeight >= 0) {
             const rd = String(Math.ceil(Math.random() * 10000000))
-            const savePath = path.resolve(`I:\\酷Q Pro\\data\\image\\${rd}.png`)
+            const savePath = path.resolve(`D:\\data\\image\\${rd}.png`)
             imagesCode.push(rd)
             await this.cropImage(
               tempPath,
