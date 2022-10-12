@@ -26,6 +26,7 @@ export class ScreenshotService {
 
     if (text.toLowerCase().startsWith(ScreenshotService.prefix)) {
       const prefix = data.message.split(' ')[1]
+      console.log(prefix);
       if (ScreenshotService.setPrefixs.includes(prefix))
         ScreenshotService.setAlias(data)
       else if (ScreenshotService.removePrefixs.includes(prefix))
@@ -178,6 +179,8 @@ export class ScreenshotService {
   }
 
   private static async getScreenshots(msg: TypeEvent) {
+    console.log('---------------');
+    console.log(msg.user_id, msg.group_id, msg.message)
     try {
       commomSend({
         user_id: msg.user_id,
@@ -241,6 +244,8 @@ export class ScreenshotService {
       })
       await page.screenshot({ path: tempPath, fullPage: true })
 
+      console.log('=====');
+      console.log(tempPath);
       gm(tempPath).size(async (err, size) => {
         let curHeight = size.height
         const maxHeightPerSlice = 3000

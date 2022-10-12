@@ -1,5 +1,5 @@
 import { TypePluginParams } from '@/bot'
-import { DbTestController } from './src/controller'
+import { DbTestService } from './service'
 
 export interface DbTestOptions {}
 
@@ -9,6 +9,6 @@ export default (options: DbTestOptions) => {
       return
     }
 
-    DbTestController.parseMsg(data, options)
+    DbTestService.parseMsg(data, options)
   }
 }
