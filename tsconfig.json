@@ -2,9 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "CommonJS",
-    "target": "esnext",
-    "lib": ["esnext", "dom"],
-    "sourceMap": true,
+    "target": "ES2019",
     "baseUrl": ".",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -16,7 +14,6 @@
     "noUnusedLocals": true,
     "allowJs": true,
     "experimentalDecorators": true,
-    "strict": true,
     "paths": {
       "@/*": ["./src/*"]
     }

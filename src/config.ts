@@ -16,5 +16,8 @@ export const config = {
     './plugin/mini-game': {},
     './plugin/moe-wiki': {},
     './plugin/qrcode': {},
+    './plugin/screenshots': {},
+    './plugin/clock': {},
+    './plugin/random-picture': {},
   },
 }
