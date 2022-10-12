@@ -52,7 +52,7 @@ export class MoeWikiService {
       targetUrl
 
     setTimeout(() => {
-      fs.unlink(vNode.picturePath, () => {})
+      fs.unlink(vNode.picturePath, () => { })
     }, 10000)
 
     return `[CQ:at,qq=${sender}]\r\n${res}`
@@ -96,7 +96,7 @@ export class MoeWikiService {
       const endIndex = (i + 1) * 3000
       await ws.send('send_group_msg', {
         group_id: groupId,
-        message: [...formatMsg(`${section.slice(startIndex, endIndex)}`)],
+        message: formatMsg(`${section.slice(startIndex, endIndex)}`),
       })
       await MoeWikiService.wait(300)
     }
@@ -129,7 +129,7 @@ export class MoeWikiService {
 
         setTimeout(() => {
           if (fs.existsSync(picturePath)) {
-            fs.unlink(picturePath, () => {})
+            fs.unlink(picturePath, () => { })
           }
         }, 60 * 1000)
 
@@ -179,7 +179,7 @@ export class MoeWikiService {
     })
 
     const rd = String(Math.ceil(Math.random() * 10000000))
-    const savePath = path.resolve(`D:\\data\\image\\${rd}`)
+    const savePath = path.resolve(`e:\\data\\image\\${rd}`)
 
     response.data.pipe(fs.createWriteStream(savePath))
     await new Promise(res => {

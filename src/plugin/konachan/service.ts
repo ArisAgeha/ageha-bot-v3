@@ -45,7 +45,7 @@ export class KonachanService {
         })
 
         const rd = String(Math.ceil(Math.random() * 10000000))
-        const savePath = path.resolve(`D:\\data\\image\\${rd}`)
+        const savePath = path.resolve(`e:\\data\\image\\${rd}`)
         const pictureCq = `[CQ:image,file=${rd}]`
 
         const rs = fs.createWriteStream(savePath)

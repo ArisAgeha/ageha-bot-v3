@@ -3,6 +3,7 @@ import { TextHelper } from '@/utils/functional-utils'
 import { commomSend } from '@/utils/msg-helper'
 import { RandomPictureOptions } from '..'
 import { RandomPictureService } from './service'
+import path from 'path'
 
 export class RandomPictureController {
   static prefix = '随机'
@@ -64,8 +65,7 @@ export class RandomPictureController {
     )
     Object.keys(this.typeMap).forEach(typeNum => {
       textHelper.append(
-        `${type === Number(typeNum) ? '☞ ' : ''}[${typeNum}] ${
-          this.typeMap[typeNum]
+        `${type === Number(typeNum) ? '☞ ' : ''}[${typeNum}] ${this.typeMap[typeNum]
         }`
       )
     })
@@ -127,8 +127,7 @@ export class RandomPictureController {
     )
     Object.keys(this.sizeMap).forEach(sizeNum => {
       textHelper.append(
-        `${size === Number(sizeNum) ? '☞ ' : ''}[${sizeNum}] ${
-          this.sizeMap[sizeNum]
+        `${size === Number(sizeNum) ? '☞ ' : ''}[${sizeNum}] ${this.sizeMap[sizeNum]
         }`
       )
     })
@@ -179,8 +178,12 @@ export class RandomPictureController {
 
     if (rds) {
       rds.forEach(rd => {
+        console.log('---rd')
+        console.log(rd)
+        const basicPath = path.resolve('E:\\data\\image')
+        console.log(basicPath);
         commomSend({
-          msg: `[CQ:image,file=${rd}.png]`,
+          msg: `[CQ:image,file=file:///${basicPath}\\${rd}.png]`,
           user_id: msg.user_id,
           group_id: msg.group_id,
         })

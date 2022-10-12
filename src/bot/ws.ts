@@ -5,6 +5,8 @@ const socket = new WebSocket(config.bot.ws)
 
 export const ws = {
   async send(action: string, params: Record<string, any>) {
+    console.log('parse--------');
+    console.log(JSON.stringify({ action, params }));
     await socket.send(JSON.stringify({ action, params }))
   },
   listen(callback: any) {

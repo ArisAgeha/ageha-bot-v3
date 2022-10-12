@@ -4,13 +4,13 @@ export function patchData(data: TypeEvent, pattern: RegExp) {
   data.message = data.message?.replace(pattern, '').trim()
 }
 
-export function formatMsg(msg: string | string[] | unknown): string[] {
-  if (!msg) return []
-  else if (typeof msg === 'string') return [msg]
-  else if (Array.isArray(msg)) return msg
+export function formatMsg(msg: string | string[] | unknown): string {
+  if (!msg) return ''
+  else if (typeof msg === 'string') return msg
+  else if (Array.isArray(msg)) return msg.join('\n')
   else {
     console.error(`error msg type [${typeof msg}]: ${msg}`)
-    return []
+    return ''
   }
 }
 
@@ -56,13 +56,14 @@ export async function commomSend(params: {
 
   if (!msg) return
 
-  if (group_id === 'group') {
+
+  if (group_id) {
     await ws.send('send_group_msg', {
       group_id: group_id,
-      message: [...formatMsg(msg)],
+      message: formatMsg(msg),
     })
     return
-  } else if (user_id === 'private') {
+  } else if (user_id) {
     await ws.send('send_private_msg', {
       user_id: user_id,
       message: msg,

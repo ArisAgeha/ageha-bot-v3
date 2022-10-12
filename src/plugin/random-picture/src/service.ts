@@ -57,7 +57,7 @@ export class RandomPictureService {
 
         const rd = String(Math.ceil(Math.random() * 10000000))
         const tempPath = path.resolve(`./temp/${rd}.png`)
-        const savePath = path.resolve(`D:\\data\\image\\${rd}.png`)
+        const savePath = path.resolve(`E:\\data\\image\\${rd}.png`)
 
         await detailPageEl.screenshot({ path: tempPath })
 
