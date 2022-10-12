@@ -27,6 +27,6 @@ export default (options: RunJsOptions) => {
 
     const replyMsg = await RunJSService.runJs(message, options)
 
-    commonReply({ replyMsg, data, ws, http })
+    commonReply({ replyMsg, data })
   }
 }

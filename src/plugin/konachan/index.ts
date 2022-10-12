@@ -11,6 +11,6 @@ export default (options: KonachanOptions) => {
     }
 
     const replyMsg = formatMsg(await KonachanService.parseMsg(data))
-    commonReply({ data, ws, replyMsg })
+    commonReply({ data, replyMsg })
   }
 }

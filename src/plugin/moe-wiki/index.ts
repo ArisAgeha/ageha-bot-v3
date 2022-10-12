@@ -11,6 +11,6 @@ export default (options: MoeWikiOptions) => {
     }
 
     const replyMsg = formatMsg(await MoeWikiService.parseMsg(data))
-    commonReply({ data, ws, replyMsg })
+    commonReply({ data, replyMsg })
   }
 }

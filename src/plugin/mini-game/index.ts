@@ -12,6 +12,6 @@ export default (options: MiniGameOptions) => {
 
     const replyMsg = formatMsg(MiniGameService.parseMsg(data, options))
 
-    commonReply({ data, ws, replyMsg })
+    commonReply({ data, replyMsg })
   }
 }

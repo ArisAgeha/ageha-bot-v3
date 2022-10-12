@@ -22,6 +22,6 @@ module.exports = () => {
 
     const replyMsg = await QrCodeService.getImage(message)
 
-    commonReply({ replyMsg, data, ws })
+    commonReply({ replyMsg, data })
   }
 }

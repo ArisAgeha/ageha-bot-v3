@@ -12,5 +12,9 @@ export const config = {
         sayHello: (value: string) => `hello, ${value}`,
       },
     },
+    './plugin/konachan': {},
+    './plugin/mini-game': {},
+    './plugin/moe-wiki': {},
+    './plugin/qrcode': {},
   },
 }
