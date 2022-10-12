@@ -4,8 +4,8 @@ import { config } from '../config'
 const socket = new WebSocket(config.bot.ws)
 
 export const ws = {
-  send(action: string, params: Record<string, any>) {
-    socket.send(JSON.stringify({ action, params }))
+  async send(action: string, params: Record<string, any>) {
+    await socket.send(JSON.stringify({ action, params }))
   },
   listen(callback: any) {
     socket.on('message', (data: any) => {

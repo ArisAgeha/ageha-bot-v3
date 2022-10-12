@@ -1,5 +1,5 @@
 import { TypeEvent, ws } from '@/bot'
-import { formatMsg, patchData } from '@/utils/utils'
+import { formatMsg, patchData } from '@/utils/msg-helper'
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'

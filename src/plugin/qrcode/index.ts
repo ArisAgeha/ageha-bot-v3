@@ -1,5 +1,5 @@
 import { TypePluginParams } from '@/bot'
-import { commonReply } from '@/utils/utils'
+import { commonReply } from '@/utils/msg-helper'
 import { QrCodeService } from './service'
 
 const pattern = /^(二维码|qr(code)?)\s+/i

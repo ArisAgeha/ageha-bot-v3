@@ -1,4 +1,4 @@
-import { http, TypeEvent, TypeHttp, TypeWS, ws } from '@/bot'
+import { TypeEvent, ws } from '@/bot'
 
 export function patchData(data: TypeEvent, pattern: RegExp) {
   data.message = data.message?.replace(pattern, '').trim()
@@ -47,7 +47,7 @@ export function commonReply(params: {
   }
 }
 
-export function commomSend(params: {
+export async function commomSend(params: {
   group_id?: string | number
   user_id?: string | number
   msg: string | string[] | unknown
@@ -57,13 +57,13 @@ export function commomSend(params: {
   if (!msg) return
 
   if (group_id === 'group') {
-    ws.send('send_group_msg', {
+    await ws.send('send_group_msg', {
       group_id: group_id,
       message: [...formatMsg(msg)],
     })
     return
   } else if (user_id === 'private') {
-    ws.send('send_private_msg', {
+    await ws.send('send_private_msg', {
       user_id: user_id,
       message: msg,
     })

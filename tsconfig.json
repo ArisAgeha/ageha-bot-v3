@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "outDir": "build/dist",
+    "outDir": "dist",
     "module": "CommonJS",
     "target": "esnext",
     "lib": ["esnext", "dom"],
     "sourceMap": true,
     "baseUrl": ".",
-    "jsx": "react",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
@@ -19,8 +18,7 @@
     "experimentalDecorators": true,
     "strict": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "_c/*": ["./src/components"]
+      "@/*": ["./src/*"]
     }
   },
   "exclude": ["node_modules", "build", "scripts", "tslint-config-prettier"]

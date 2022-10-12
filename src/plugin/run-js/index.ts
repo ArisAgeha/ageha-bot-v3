@@ -1,5 +1,5 @@
 import { TypePluginParams } from '@/bot'
-import { commonReply, formatMsg } from '@/utils/utils'
+import { commonReply } from '@/utils/msg-helper'
 import { RunJSService } from './service'
 
 const pattern = /^JS\s+/i

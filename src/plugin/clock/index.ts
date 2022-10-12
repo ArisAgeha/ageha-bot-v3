@@ -1,5 +1,4 @@
 import { TypePluginParams } from '@/bot'
-import { commonReply, formatMsg } from '@/utils/utils'
 import { ClockService } from './service'
 
 export interface ClockOptions {}
@@ -9,5 +8,7 @@ export default (options: ClockOptions) => {
     if (!data.message) {
       return
     }
+
+    ClockService.parseMsg(data, options)
   }
 }

@@ -1,5 +1,5 @@
 import { TypeEvent } from '@/bot'
-import { patchData } from '@/utils/utils'
+import { patchData } from '@/utils/msg-helper'
 import { MiniGameOptions } from '.'
 
 export class MiniGameService {

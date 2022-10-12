@@ -1,5 +1,5 @@
 import { TypePluginParams } from '@/bot'
-import { commonReply, formatMsg } from '@/utils/utils'
+import { commonReply, formatMsg } from '@/utils/msg-helper'
 import { MiniGameService } from './service'
 
 export interface MiniGameOptions {}

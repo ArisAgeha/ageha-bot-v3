@@ -1,6 +1,6 @@
 import { TypeEvent } from '@/bot'
 import { ClockStore, clockStore } from '@/nedb/Nedb'
-import { commomSend, commonReply, patchData } from '@/utils/utils'
+import { commomSend, commonReply, patchData } from '@/utils/msg-helper'
 import { ClockOptions } from '.'
 import dayjs from 'dayjs'
 
@@ -9,25 +9,25 @@ export class ClockService {
     const showClockPattern = /^show clock/
     if (showClockPattern.test(data.message || '')) {
       patchData(data, showClockPattern)
-      return ClockService.showClock(data)
+      ClockService.showClock(data)
     }
 
     const showAllClockPattern = /^show all clock/
     if (showAllClockPattern.test(data.message || '')) {
       patchData(data, showAllClockPattern)
-      return ClockService.showAllClock(data)
+      ClockService.showAllClock(data)
     }
 
     const delayPattern =
       /^yc \d+[.\d*]*(ms|s|sec|secs|second|seconds|h|hour|hours|m|min|mins)/
     if (delayPattern.test(data.message || '')) {
-      return ClockService.delayNotify(data)
+      ClockService.delayNotify(data)
     }
 
     const cancelPattern = /^cancel clock/
     if (cancelPattern.test(data.message || '')) {
       patchData(data, cancelPattern)
-      return ClockService.cancelClock(data)
+      ClockService.cancelClock(data)
     }
 
     return null

@@ -2,7 +2,7 @@ import { TypeEvent } from '@/bot'
 import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
-import { patchData } from '@/utils/utils'
+import { patchData } from '@/utils/msg-helper'
 
 const pattern = /^(kona|kn)\s+/i
 
