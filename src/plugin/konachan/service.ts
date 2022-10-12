@@ -3,6 +3,7 @@ import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
 import { patchData } from '@/utils/msg-helper'
+import { basicPath } from '@/utils/functional-utils'
 
 const pattern = /^(kona|kn)\s+/i
 
@@ -46,7 +47,7 @@ export class KonachanService {
 
         const rd = String(Math.ceil(Math.random() * 10000000))
         const savePath = path.resolve(`e:\\data\\image\\${rd}`)
-        const pictureCq = `[CQ:image,file=${rd}]`
+        const pictureCq = `[CQ:image,file=${basicPath}\\${rd}]`
 
         const rs = fs.createWriteStream(savePath)
         response.data.pipe(rs)

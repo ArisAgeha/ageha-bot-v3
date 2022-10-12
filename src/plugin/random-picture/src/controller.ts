@@ -1,5 +1,5 @@
 import { TypeEvent } from '@/bot'
-import { TextHelper } from '@/utils/functional-utils'
+import { basicPath, TextHelper } from '@/utils/functional-utils'
 import { commomSend } from '@/utils/msg-helper'
 import { RandomPictureOptions } from '..'
 import { RandomPictureService } from './service'
@@ -178,10 +178,6 @@ export class RandomPictureController {
 
     if (rds) {
       rds.forEach(rd => {
-        console.log('---rd')
-        console.log(rd)
-        const basicPath = path.resolve('E:\\data\\image')
-        console.log(basicPath);
         commomSend({
           msg: `[CQ:image,file=file:///${basicPath}\\${rd}.png]`,
           user_id: msg.user_id,

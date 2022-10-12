@@ -3,6 +3,8 @@ import { formatMsg, patchData } from '@/utils/msg-helper'
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
+import cheerio from 'cheerio'
+import { basicPath } from '@/utils/functional-utils'
 
 export class MoeWikiService {
   static userData = {}
@@ -38,7 +40,7 @@ export class MoeWikiService {
 
     const vNode = await MoeWikiService.buildVNode($)
     MoeWikiService.saveVNode(data, vNode)
-    const pictureCq = `[CQ:image,file=${vNode.pictureFilename}]`
+    const pictureCq = `[CQ:image,file=${basicPath}\\${vNode.pictureFilename}]`
     const targetUrl = encodeURI(`https://zh.moegirl.org.cn/${word.trim()}`)
 
     const res =
@@ -112,7 +114,7 @@ export class MoeWikiService {
   }
 
   private static async getPictures(section: string) {
-    const images = section.match(/\[CQ:image,file=\d+\]/g)
+    const images = section.match(/\[CQ:image,file=.+\]/g)
     if (!images) return
     await Promise.all(
       images.map(async imageCq => {
@@ -275,7 +277,7 @@ export class MoeWikiService {
         const imgSrc = para.attribs.src
         const rd = Math.ceil(Math.random() * 100000000)
         MoeWikiService.pictureMaps[rd] = imgSrc
-        intro += `[CQ:image,file=${rd}]`
+        intro += `[CQ:image,file=file:///${basicPath}\\${rd}]`
       }
       if (para.data && para.data !== '\\n') {
         intro += String(para.data)
@@ -290,7 +292,11 @@ export class MoeWikiService {
   private static async fetchHtml(word: string, msg: TypeEvent) {
     let res
     try {
-      res = await axios.get(encodeURI(`https://zh.moegirl.org/${word}`))
+      res = await axios.get(encodeURI(`https://zh.moegirl.org.cn/${word}`), {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36'
+        }
+      })
       console.log('fetch success')
       const html = res.data
       const cheerio = require('cheerio')
@@ -308,17 +314,18 @@ export class MoeWikiService {
     try {
       const word = data.message
       res = await axios.get(
-        encodeURI(
-          `https://zh.moegirl.org/index.php?title=Special:搜索&limit=20&offset=20&profile=default&search=${word}`
-        )
-      )
+        encodeURI(`https://zh.moegirl.org.cn/index.php?title=Special:搜索&limit=20&offset=20&profile=default&search=${word}`)
+        , {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36'
+          }
+        })
       console.log('redirect success')
       const html = res.data
-      const cheerio = require('cheerio')
       const $ = cheerio.load(html)
       return MoeWikiService.parseSearchPage($, data)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       return '服务器炸了，你猜猜是萌百炸了还是我炸了？'
     }
   }
@@ -333,6 +340,7 @@ export class MoeWikiService {
     if (contents.length === 0) {
       return 'Moe上啥都没 Σ(⊙▽⊙"a'
     }
+
 
     const titles = contentsArray
       .map(item => {

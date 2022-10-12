@@ -16,24 +16,27 @@ export function formatMsg(msg: string | string[] | unknown): string {
 
 export function commonReply(params: {
   data: TypeEvent
-  replyMsg: string | string[] | unknown
+  replyMsg: any
 }) {
   const { data, replyMsg } = params
 
   if (!replyMsg) return
 
   if (data.message_type === 'group') {
+    const msg = Array.isArray(replyMsg) ? [
+      {
+        type: 'reply',
+        data: {
+          id: data.message_id,
+        },
+      },
+      ...replyMsg,
+    ] : `[CQ:reply,id=${data.message_id}] ${replyMsg}`
+
+
     ws.send('send_group_msg', {
       group_id: data.group_id,
-      message: [
-        {
-          type: 'reply',
-          data: {
-            id: data.message_id,
-          },
-        },
-        ...formatMsg(replyMsg),
-      ],
+      message: msg
     })
     return
   }

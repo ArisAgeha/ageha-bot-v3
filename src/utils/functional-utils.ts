@@ -1,3 +1,5 @@
+import path from 'path'
+
 export async function sleep(time: number) {
   return new Promise(res => {
     setTimeout(() => {
@@ -22,3 +24,5 @@ export class TextHelper {
     return this.text
   }
 }
+
+export const basicPath = path.resolve('E:\\data\\image')

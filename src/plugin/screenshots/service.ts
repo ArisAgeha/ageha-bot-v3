@@ -12,7 +12,7 @@ import gm from 'gm'
 import path from 'path'
 import fs from 'fs'
 import puppeteer from 'puppeteer'
-import { sleep, TextHelper } from '@/utils/functional-utils'
+import { basicPath, sleep, TextHelper } from '@/utils/functional-utils'
 
 export class ScreenshotService {
   static prefix = 'ss'
@@ -279,7 +279,7 @@ export class ScreenshotService {
           })
 
           for (let rd of imagesCode) {
-            const pictureCq = `[CQ:image,file=${rd}.png]`
+            const pictureCq = `[CQ:image,file=file:///${basicPath}\\${rd}.png]`
             await commomSend({
               user_id: msg.user_id,
               group_id: msg.group_id,
@@ -291,7 +291,7 @@ export class ScreenshotService {
           fs.rename(tempPath, savePath, async err => {
             console.log(err)
             if (!err) {
-              const pictureCq = `[CQ:image,file=${rd}.png]`
+              const pictureCq = `[CQ:image,file=file:///${basicPath}\\${rd}.png]`
               await commomSend({
                 user_id: msg.user_id,
                 group_id: msg.group_id,
